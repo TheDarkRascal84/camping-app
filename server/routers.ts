@@ -6,6 +6,8 @@ import { z } from "zod";
 import * as db from "./db";
 import { ingestionService } from "./ingestion";
 import { fetchCampgroundImages } from "./images";
+import * as bookingsDb from "./bookings-db";
+import { protectedProcedure } from "./_core/trpc";
 
 export const appRouter = router({
   system: systemRouter,
@@ -113,6 +115,61 @@ export const appRouter = router({
   }),
 
   // Images
+  // Booking management
+  bookings: router({    create: protectedProcedure
+      .input(z.object({
+        campgroundId: z.number(),
+        siteId: z.number().optional(),
+        checkInDate: z.date(),
+        checkOutDate: z.date(),
+        numberOfGuests: z.number().min(1),
+        totalPrice: z.string().optional(),
+        specialRequests: z.string().optional(),
+        contactEmail: z.string().email().optional(),
+        contactPhone: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (!ctx.user) throw new Error("Not authenticated");
+        
+        const result = await bookingsDb.createBooking({
+          userId: ctx.user.id,
+          campgroundId: input.campgroundId,
+          siteId: input.siteId,
+          checkInDate: input.checkInDate,
+          checkOutDate: input.checkOutDate,
+          numberOfGuests: input.numberOfGuests,
+          totalPrice: input.totalPrice,
+          specialRequests: input.specialRequests,
+          contactEmail: input.contactEmail || ctx.user.email || undefined,
+          contactPhone: input.contactPhone,
+          status: "confirmed",
+        });
+        
+        return result;
+      }),
+
+    list: protectedProcedure
+      .query(async ({ ctx }) => {
+        if (!ctx.user) throw new Error("Not authenticated");
+        return await bookingsDb.getUserBookings(ctx.user.id);
+      }),
+
+    getById: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input, ctx }) => {
+        if (!ctx.user) throw new Error("Not authenticated");
+        return await bookingsDb.getBookingById(input.id, ctx.user.id);
+      }),
+
+    cancel: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        if (!ctx.user) throw new Error("Not authenticated");
+        await bookingsDb.cancelBooking(input.id, ctx.user.id);
+        return { success: true };
+      }),
+  }),
+
   images: router({
     getCampgroundImages: publicProcedure
       .input(

@@ -19,6 +19,40 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
+ * Bookings - user reservations for campsites
+ */
+export const bookings = mysqlTable("bookings", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  campgroundId: int("campgroundId").notNull(),
+  siteId: int("siteId"),
+  
+  // Booking details
+  checkInDate: timestamp("checkInDate").notNull(),
+  checkOutDate: timestamp("checkOutDate").notNull(),
+  numberOfGuests: int("numberOfGuests").notNull().default(1),
+  
+  // Pricing
+  totalPrice: decimal("totalPrice", { precision: 10, scale: 2 }),
+  currency: varchar("currency", { length: 3 }).default("USD"),
+  
+  // Status tracking
+  status: mysqlEnum("status", ["pending", "confirmed", "cancelled", "completed"]).default("pending").notNull(),
+  confirmationNumber: varchar("confirmationNumber", { length: 64 }),
+  
+  // Additional information
+  specialRequests: text("specialRequests"),
+  contactEmail: varchar("contactEmail", { length: 320 }),
+  contactPhone: varchar("contactPhone", { length: 20 }),
+  
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Booking = typeof bookings.$inferSelect;
+export type InsertBooking = typeof bookings.$inferInsert;
+
+/**
  * Campgrounds (facilities) - main camping locations
  */
 export const campgrounds = mysqlTable("campgrounds", {

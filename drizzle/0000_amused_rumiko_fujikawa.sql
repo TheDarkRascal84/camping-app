@@ -20,6 +20,26 @@ CREATE TABLE `availability` (
 	CONSTRAINT `site_date_unique` UNIQUE(`siteId`,`availableDate`)
 );
 --> statement-breakpoint
+CREATE TABLE `bookings` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`campgroundId` int NOT NULL,
+	`siteId` int,
+	`checkInDate` timestamp NOT NULL,
+	`checkOutDate` timestamp NOT NULL,
+	`numberOfGuests` int NOT NULL DEFAULT 1,
+	`totalPrice` decimal(10,2),
+	`currency` varchar(3) DEFAULT 'USD',
+	`status` enum('pending','confirmed','cancelled','completed') NOT NULL DEFAULT 'pending',
+	`confirmationNumber` varchar(64),
+	`specialRequests` text,
+	`contactEmail` varchar(320),
+	`contactPhone` varchar(20),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `bookings_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `campgroundAmenities` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`campgroundId` int NOT NULL,

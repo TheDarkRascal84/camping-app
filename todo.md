@@ -120,3 +120,10 @@
 ## Image Error Handling
 - [x] Add fallback placeholder icon for failed image loads
 - [x] Implement error state tracking for images
+
+## Booking System
+- [x] Design bookings database table schema
+- [x] Create tRPC endpoints for booking operations (create, list, cancel)
+- [x] Add booking form to campground detail pages
+- [x] Implement booking confirmation and management UI
+- [x] Add user's bookings dashboard

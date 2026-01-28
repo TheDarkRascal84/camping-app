@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tent, MapPin, Phone, ExternalLink, Loader2, Calendar, DollarSign, Users, Truck, Droplet, Zap, Trash2, Flame, Utensils, Dog, Accessibility } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookingForm } from "@/components/BookingForm";
 
 export default function CampgroundDetail() {
   const [, params] = useRoute("/campground/:id");
@@ -354,6 +355,12 @@ export default function CampgroundDetail() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Booking Form */}
+            <BookingForm 
+              campgroundId={campground.id} 
+              campgroundName={campground.name}
+            />
+
             <Card>
               <CardHeader>
                 <CardTitle>Campground Info</CardTitle>

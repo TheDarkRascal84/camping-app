@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import MapView from "./pages/MapView";
 import CampgroundDetail from "./pages/CampgroundDetail";
+import MyBookings from "./pages/MyBookings";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path={"/search"} component={Search} />
       <Route path={"/map"} component={MapView} />
       <Route path={"/campground/:id"} component={CampgroundDetail} />
+      <Route path={"/my-bookings"} component={MyBookings} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
