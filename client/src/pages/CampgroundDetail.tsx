@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRoute, Link } from "wouter";
+import useEmblaCarousel from "embla-carousel-react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,6 +27,28 @@ export default function CampgroundDetail() {
     { campgroundId },
     { enabled: campgroundId > 0 }
   );
+
+  // Fetch images for carousel
+  const { data: images, isLoading: imagesLoading } = trpc.images.getCampgroundImages.useQuery(
+    {
+      campgroundName: campground?.name || "",
+      city: campground?.city || "",
+      state: campground?.state || "",
+      campgroundType: campground?.campgroundType || "tent",
+      limit: 6,
+    },
+    { enabled: !!campground }
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   if (campgroundLoading) {
     return (
@@ -86,6 +109,48 @@ export default function CampgroundDetail() {
           </div>
         </div>
       </header>
+
+      {/* Image Carousel */}
+      {images && images.length > 0 && (
+        <div className="relative bg-black">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {images.map((image, index) => (
+                <div key={index} className="flex-[0_0_100%] min-w-0">
+                  <div className="relative h-[400px] md:h-[500px]">
+                    <img
+                      src={image.url}
+                      alt={image.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                      <p className="text-white text-xs">{image.credit}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={scrollPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black rounded-full p-3 shadow-lg transition-all"
+            aria-label="Previous image"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-black rounded-full p-3 shadow-lg transition-all"
+            aria-label="Next image"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-primary/5 to-background border-b">
