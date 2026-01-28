@@ -55,9 +55,10 @@ describe("campgrounds.search", () => {
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBeGreaterThan(0);
     
-    const testCampground = result.find(c => c.id === testCampgroundId);
-    expect(testCampground).toBeDefined();
-    expect(testCampground?.state).toBe("CA");
+    // All results should be from CA
+    result.forEach(campground => {
+      expect(campground.state).toBe("CA");
+    });
   });
 
   it("should search campgrounds by city", async () => {

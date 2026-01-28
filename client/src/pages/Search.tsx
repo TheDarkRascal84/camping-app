@@ -36,36 +36,48 @@ export default function Search() {
 
   const { data: campgrounds, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
 
-  // Fetch images for first campground as example
-  const firstCampground = campgrounds && campgrounds.length > 0 ? campgrounds[0] : null;
-  
-  const { data: sampleImages } = trpc.images.getCampgroundImages.useQuery(
-    {
-      campgroundName: firstCampground?.name || "",
-      city: firstCampground?.city || "",
-      state: firstCampground?.state || "",
-      campgroundType: firstCampground?.campgroundType || "tent",
-      limit: 1,
-    },
-    {
-      enabled: !!firstCampground,
-    }
-  );
-
-  // Set sample image for first campground
+  // Fetch images for all campgrounds
   useEffect(() => {
-    if (sampleImages && sampleImages.length > 0 && firstCampground) {
-      setCampgroundImages(prev => ({
-        ...prev,
-        [firstCampground.id]: sampleImages[0].thumbnail,
-      }));
-      // Set loading state for this image
-      setImageLoadingStates(prev => ({
-        ...prev,
-        [firstCampground.id]: true,
-      }));
-    }
-  }, [sampleImages, firstCampground]);
+    if (!campgrounds || campgrounds.length === 0) return;
+
+    // Fetch images for each campground with a small delay to avoid rate limiting
+    campgrounds.forEach((campground, index) => {
+      // Skip if we already have an image or error for this campground
+      if (campgroundImages[campground.id] || imageErrorStates[campground.id]) return;
+
+      // Stagger requests by 100ms each to avoid overwhelming the API
+      setTimeout(async () => {
+        try {
+          const response = await fetch(`/api/trpc/images.getCampgroundImages?input=${encodeURIComponent(JSON.stringify({
+            campgroundName: campground.name,
+            city: campground.city,
+            state: campground.state,
+            campgroundType: campground.campgroundType,
+            limit: 1,
+          }))}`);
+          
+          const data = await response.json();
+          
+          if (data.result?.data && data.result.data.length > 0) {
+            setCampgroundImages(prev => ({
+              ...prev,
+              [campground.id]: data.result.data[0].thumbnail,
+            }));
+            setImageLoadingStates(prev => ({
+              ...prev,
+              [campground.id]: true,
+            }));
+          }
+        } catch (error) {
+          console.error(`Failed to fetch image for campground ${campground.id}:`, error);
+          setImageErrorStates(prev => ({
+            ...prev,
+            [campground.id]: true,
+          }));
+        }
+      }, index * 100); // Stagger by 100ms
+    });
+  }, [campgrounds, campgroundImages, imageErrorStates]);
 
   const handleImageLoad = (campgroundId: number) => {
     setImageLoadingStates(prev => ({
