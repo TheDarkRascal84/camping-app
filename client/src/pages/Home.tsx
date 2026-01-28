@@ -10,11 +10,9 @@ export default function Home() {
       <header className="border-b bg-card">
         <div className="container py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 text-2xl font-bold text-primary">
-                <Tent className="h-8 w-8" />
-                CampFinder
-              </a>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+              <Tent className="h-8 w-8" />
+              CampFinder
             </Link>
             <nav className="flex items-center gap-4">
               <Link href="/search">
@@ -172,11 +170,11 @@ export default function Home() {
               <span>© 2026 CampFinder. Built with Manus.</span>
             </div>
             <div className="flex items-center gap-6 text-sm">
-              <Link href="/search">
-                <a className="text-muted-foreground hover:text-foreground">Search</a>
+              <Link href="/search" className="text-muted-foreground hover:text-foreground">
+                Search
               </Link>
-              <Link href="/map">
-                <a className="text-muted-foreground hover:text-foreground">Map</a>
+              <Link href="/map" className="text-muted-foreground hover:text-foreground">
+                Map
               </Link>
             </div>
           </div>

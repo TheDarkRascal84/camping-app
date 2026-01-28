@@ -109,3 +109,6 @@
 
 ## Visual Refinements
 - [x] Adjust background overlay opacity to 80% for more prominent image
+
+## Bug Fixes (Home Page)
+- [x] Fix nested anchor tag error on home page
