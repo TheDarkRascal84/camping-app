@@ -153,3 +153,10 @@
 - [x] Implement batch image loading with proper error handling
 - [x] Add loading states for individual campground images
 - [x] Optimize API calls to avoid rate limiting
+
+## Image URL Caching
+- [x] Update database helper to cache image URLs in photos JSON field
+- [x] Modify image fetching logic to check cache first
+- [x] Update frontend to prioritize cached images
+- [ ] Add cache invalidation logic for stale images
+- [x] Test caching performance improvement

@@ -193,6 +193,7 @@ export const appRouter = router({
           state: z.string(),
           campgroundType: z.string(),
           limit: z.number().optional(),
+          campgroundId: z.number().optional(), // For caching
         })
       )
       .query(async ({ input }) => {

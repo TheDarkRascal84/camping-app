@@ -1,7 +1,12 @@
 /**
  * Image service for fetching stock photos of campgrounds
  * Uses Unsplash API for high-quality nature and camping images
+ * Implements database caching to reduce API calls
  */
+
+import { getDb } from './db';
+import { campgrounds } from '../drizzle/schema';
+import { eq } from 'drizzle-orm';
 
 interface UnsplashPhoto {
   id: string;
@@ -36,8 +41,18 @@ export async function fetchCampgroundImages(params: {
   state: string;
   campgroundType: string;
   limit?: number;
+  campgroundId?: number; // Optional campground ID for caching
 }): Promise<{ url: string; thumbnail: string; alt: string; credit: string }[]> {
-  const { campgroundName, city, state, campgroundType, limit = 3 } = params;
+  const { campgroundName, city, state, campgroundType, limit = 3, campgroundId } = params;
+
+  // Check database cache first if campgroundId is provided
+  if (campgroundId) {
+    const cachedImages = await getCachedImages(campgroundId, limit);
+    if (cachedImages && cachedImages.length > 0) {
+      console.log(`[Images] Using cached images for campground ${campgroundId}`);
+      return cachedImages;
+    }
+  }
 
   // Build search query based on campground characteristics
   const searchTerms = [];
@@ -109,12 +124,19 @@ export async function fetchCampgroundImages(params: {
       return generatePlaceholderImages(campgroundName, limit);
     }
 
-    return data.results.map((photo) => ({
+    const images = data.results.map((photo) => ({
       url: photo.urls.regular,
       thumbnail: photo.urls.small,
       alt: photo.alt_description || photo.description || `${campgroundName} camping`,
       credit: `Photo by ${photo.user.name} on Unsplash`,
     }));
+
+    // Cache images in database if campgroundId is provided
+    if (campgroundId && images.length > 0) {
+      await cacheImages(campgroundId, images);
+    }
+
+    return images;
   } catch (error) {
     console.error('[Images] Error fetching images:', error);
     return generatePlaceholderImages(campgroundName, limit);
@@ -142,4 +164,55 @@ function generatePlaceholderImages(
   }
   
   return images;
+}
+
+/**
+ * Get cached images from database
+ */
+async function getCachedImages(
+  campgroundId: number,
+  limit: number
+): Promise<{ url: string; thumbnail: string; alt: string; credit: string }[] | null> {
+  try {
+    const db = await getDb();
+    if (!db) return null;
+
+    const result = await db
+      .select({ photos: campgrounds.photos })
+      .from(campgrounds)
+      .where(eq(campgrounds.id, campgroundId))
+      .limit(1);
+
+    if (!result || result.length === 0 || !result[0].photos) {
+      return null;
+    }
+
+    const photos = result[0].photos as any[];
+    return photos.slice(0, limit);
+  } catch (error) {
+    console.error('[Images] Error retrieving cached images:', error);
+    return null;
+  }
+}
+
+/**
+ * Cache images in database
+ */
+async function cacheImages(
+  campgroundId: number,
+  images: { url: string; thumbnail: string; alt: string; credit: string }[]
+): Promise<void> {
+  try {
+    const db = await getDb();
+    if (!db) return;
+
+    await db
+      .update(campgrounds)
+      .set({ photos: images as any })
+      .where(eq(campgrounds.id, campgroundId));
+
+    console.log(`[Images] Cached ${images.length} images for campground ${campgroundId}`);
+  } catch (error) {
+    console.error('[Images] Error caching images:', error);
+  }
 }

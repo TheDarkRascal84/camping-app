@@ -51,8 +51,9 @@ export default function CampgroundDetail() {
       state: campground?.state || "",
       campgroundType: campground?.campgroundType || "tent",
       limit: 6,
+      campgroundId: campgroundId, // Pass ID for caching
     },
-    { enabled: !!campground }
+    { enabled: !!campground && campgroundId > 0 }
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });

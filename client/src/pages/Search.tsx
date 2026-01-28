@@ -54,6 +54,7 @@ export default function Search() {
             state: campground.state,
             campgroundType: campground.campgroundType,
             limit: 1,
+            campgroundId: campground.id, // Pass ID for caching
           }))}`);
           
           const data = await response.json();
