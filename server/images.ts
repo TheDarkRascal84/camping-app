@@ -42,24 +42,40 @@ export async function fetchCampgroundImages(params: {
   // Build search query based on campground characteristics
   const searchTerms = [];
   
-  // Add type-specific terms
+  // Add type-specific terms with more detailed keywords
   if (campgroundType === 'tent') {
-    searchTerms.push('tent camping');
+    searchTerms.push('tent', 'camping', 'campsite', 'campfire');
   } else if (campgroundType === 'rv') {
-    searchTerms.push('RV camping');
+    searchTerms.push('RV', 'camper', 'motorhome', 'campground');
   } else if (campgroundType === 'cabin') {
-    searchTerms.push('cabin woods');
+    searchTerms.push('cabin', 'log cabin', 'mountain cabin', 'forest');
+  } else if (campgroundType === 'dispersed') {
+    searchTerms.push('wilderness', 'backcountry', 'camping', 'remote');
   } else {
-    searchTerms.push('campground');
+    searchTerms.push('campground', 'camping', 'outdoor');
   }
   
-  // Add location context
-  searchTerms.push(state.toLowerCase());
+  // Add state-specific natural features for better relevance
+  const stateKeywords: Record<string, string[]> = {
+    'california': ['mountains', 'redwoods', 'sierra'],
+    'colorado': ['mountains', 'rocky mountains', 'alpine'],
+    'oregon': ['forest', 'coast', 'cascade'],
+    'washington': ['forest', 'mountains', 'pacific northwest'],
+    'arizona': ['desert', 'canyon', 'southwest'],
+    'utah': ['desert', 'canyon', 'red rocks'],
+    'montana': ['mountains', 'wilderness', 'glacier'],
+    'wyoming': ['mountains', 'yellowstone', 'wilderness'],
+  };
   
-  // Add nature/outdoor terms
-  searchTerms.push('nature', 'outdoor');
+  const stateLower = state.toLowerCase();
+  if (stateKeywords[stateLower]) {
+    searchTerms.push(...stateKeywords[stateLower]);
+  } else {
+    searchTerms.push(stateLower);
+  }
   
-  const query = searchTerms.join(' ');
+  // Limit to most relevant terms (Unsplash works better with focused queries)
+  const query = searchTerms.slice(0, 5).join(' ');
 
   try {
     // Unsplash API endpoint

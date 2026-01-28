@@ -137,3 +137,8 @@
 
 ## Bug Fixes (Campground Detail)
 - [x] Fix nested anchor tag error on campground detail page
+
+## Image Quality Improvements
+- [x] Enhance image search queries to pull more relevant campsite photos
+- [x] Add location-specific keywords to image searches
+- [x] Include campground type and amenities in search terms
