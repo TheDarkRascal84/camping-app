@@ -247,8 +247,17 @@ export default function Search() {
                 {campgrounds.map((campground) => (
                   <Card 
                     key={campground.id} 
-                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    className="hover:shadow-lg transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                     onClick={() => setLocation(`/campground/${campground.id}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setLocation(`/campground/${campground.id}`);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View details for ${campground.name} in ${campground.city}, ${campground.state}`}
                   >
                       <CardHeader>
                         <div className="flex items-start justify-between">

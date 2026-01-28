@@ -86,3 +86,7 @@
 
 ## Navigation Improvements
 - [x] Refactor Search page to use useLocation hook instead of window.location.href
+
+## Accessibility Improvements
+- [x] Add keyboard navigation support (Enter/Space keys) to campground cards
+- [x] Add proper ARIA attributes for screen reader support
