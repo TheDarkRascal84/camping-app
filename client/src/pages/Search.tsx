@@ -7,11 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, MapPin, Tent, Calendar, Filter as FilterIcon } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 
 export default function Search() {
+  const [, setLocation] = useLocation();
+  
   const [searchParams, setSearchParams] = useState<{
     state: string;
     city: string;
@@ -246,7 +248,7 @@ export default function Search() {
                   <Card 
                     key={campground.id} 
                     className="hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => window.location.href = `/campground/${campground.id}`}
+                    onClick={() => setLocation(`/campground/${campground.id}`)}
                   >
                       <CardHeader>
                         <div className="flex items-start justify-between">

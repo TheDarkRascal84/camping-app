@@ -83,3 +83,6 @@
 
 ## Bug Fixes
 - [x] Fix nested anchor tag error on search page
+
+## Navigation Improvements
+- [x] Refactor Search page to use useLocation hook instead of window.location.href
