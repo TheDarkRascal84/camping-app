@@ -142,3 +142,8 @@
 - [x] Enhance image search queries to pull more relevant campsite photos
 - [x] Add location-specific keywords to image searches
 - [x] Include campground type and amenities in search terms
+
+## Unsplash API Integration
+- [x] Request Unsplash API key from user
+- [x] Validate API key with test suite
+- [x] Enable real high-quality photo fetching
