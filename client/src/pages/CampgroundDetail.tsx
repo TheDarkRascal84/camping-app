@@ -78,19 +78,17 @@ export default function CampgroundDetail() {
       <div className="min-h-screen bg-background">
         <header className="border-b bg-card">
           <div className="container py-4">
-            <Link href="/">
-              <a className="flex items-center gap-2 text-2xl font-bold text-primary">
-                <Tent className="h-8 w-8" />
-                CampFinder
-              </a>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+              <Tent className="h-8 w-8" />
+              CampFinder
             </Link>
           </div>
         </header>
         <div className="container py-12 text-center">
           <h1 className="text-2xl font-bold mb-4">Campground Not Found</h1>
-          <Link href="/search">
-            <Button>Back to Search</Button>
-          </Link>
+          <Button asChild>
+            <Link href="/search">Back to Search</Link>
+          </Button>
         </div>
       </div>
     );
@@ -110,16 +108,14 @@ export default function CampgroundDetail() {
       <header className="border-b bg-card">
         <div className="container py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 text-2xl font-bold text-primary">
-                <Tent className="h-8 w-8" />
-                CampFinder
-              </a>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+              <Tent className="h-8 w-8" />
+              CampFinder
             </Link>
             <nav className="flex items-center gap-4">
-              <Link href="/search">
-                <Button variant="outline">Back to Search</Button>
-              </Link>
+              <Button variant="outline" asChild>
+                <Link href="/search">Back to Search</Link>
+              </Button>
             </nav>
           </div>
         </div>

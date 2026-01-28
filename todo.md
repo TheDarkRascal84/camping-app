@@ -134,3 +134,6 @@
 - [x] Integrate calendar into campground detail pages
 - [x] Add visual indicators for available, booked, and unavailable dates
 - [x] Implement date range selection from calendar
+
+## Bug Fixes (Campground Detail)
+- [x] Fix nested anchor tag error on campground detail page
