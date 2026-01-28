@@ -52,11 +52,13 @@ describe("campgrounds.search", () => {
     const result = await caller.campgrounds.search({ state: "CA" });
 
     expect(result).toBeDefined();
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
+    expect(result).toHaveProperty("campgrounds");
+    expect(result).toHaveProperty("total");
+    expect(Array.isArray(result.campgrounds)).toBe(true);
+    expect(result.campgrounds.length).toBeGreaterThan(0);
     
     // All results should be from CA
-    result.forEach(campground => {
+    result.campgrounds.forEach(campground => {
       expect(campground.state).toBe("CA");
     });
   });
@@ -68,9 +70,10 @@ describe("campgrounds.search", () => {
     const result = await caller.campgrounds.search({ city: "San Francisco" });
 
     expect(result).toBeDefined();
-    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveProperty("campgrounds");
+    expect(Array.isArray(result.campgrounds)).toBe(true);
     
-    const testCampground = result.find(c => c.id === testCampgroundId);
+    const testCampground = result.campgrounds.find(c => c.id === testCampgroundId);
     expect(testCampground).toBeDefined();
     expect(testCampground?.city).toContain("San Francisco");
   });
@@ -85,11 +88,12 @@ describe("campgrounds.search", () => {
     });
 
     expect(result).toBeDefined();
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
+    expect(result).toHaveProperty("campgrounds");
+    expect(Array.isArray(result.campgrounds)).toBe(true);
+    expect(result.campgrounds.length).toBeGreaterThan(0);
     
     // All results should be mixed type
-    result.forEach(campground => {
+    result.campgrounds.forEach(campground => {
       expect(campground.campgroundType).toBe("mixed");
     });
   });
@@ -113,7 +117,9 @@ describe("campgrounds.search", () => {
     const result = await caller.campgrounds.search({ state: "ZZ" });
 
     expect(result).toBeDefined();
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBe(0);
+    expect(result).toHaveProperty("campgrounds");
+    expect(Array.isArray(result.campgrounds)).toBe(true);
+    expect(result.campgrounds.length).toBe(0);
+    expect(result.total).toBe(0);
   });
 });

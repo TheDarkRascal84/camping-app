@@ -131,9 +131,8 @@ export async function searchCampgrounds(params: {
   offset?: number;
 }) {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) return { campgrounds: [], total: 0 };
   
-  let query = db.select().from(campgrounds);
   const conditions = [];
   
   if (params.state) {
@@ -156,13 +155,24 @@ export async function searchCampgrounds(params: {
     );
   }
   
+  // Build base query for both count and data
+  let baseQuery = db.select().from(campgrounds);
   if (conditions.length > 0) {
-    query = query.where(and(...conditions)) as any;
+    baseQuery = baseQuery.where(and(...conditions)) as any;
   }
   
-  query = query.limit(params.limit || 50).offset(params.offset || 0) as any;
+  // Get total count
+  const countQuery = db.select({ count: sql<number>`count(*)` }).from(campgrounds);
+  const countQueryWithConditions = conditions.length > 0 
+    ? countQuery.where(and(...conditions))
+    : countQuery;
+  const [{ count: total }] = await countQueryWithConditions;
   
-  return await query;
+  // Get paginated results
+  const dataQuery = baseQuery.limit(params.limit || 50).offset(params.offset || 0) as any;
+  const results = await dataQuery;
+  
+  return { campgrounds: results, total };
 }
 
 export async function updateCampground(id: number, data: Partial<typeof campgrounds.$inferInsert>) {

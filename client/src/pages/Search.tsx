@@ -26,16 +26,21 @@ export default function Search() {
     state: "",
     city: "",
     campgroundType: [],
-    limit: 50,
+    limit: 20, // Changed from 50 to 20 per page
     offset: 0,
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [showFilters, setShowFilters] = useState(true);
   const [campgroundImages, setCampgroundImages] = useState<Record<number, string>>({});
   const [imageLoadingStates, setImageLoadingStates] = useState<Record<number, boolean>>({});
   const [imageErrorStates, setImageErrorStates] = useState<Record<number, boolean>>({});
 
-  const { data: campgrounds, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
+  const { data: searchResults, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
+  const campgrounds = searchResults?.campgrounds || [];
+  const totalResults = searchResults?.total || 0;
+  const totalPages = Math.ceil(totalResults / searchParams.limit);
 
   // Fetch images for all campgrounds
   useEffect(() => {
@@ -101,6 +106,26 @@ export default function Search() {
 
   const handleSearch = () => {
     setSearchParams({ ...searchParams, offset: 0 });
+    setCurrentPage(1);
+  };
+
+  const goToPage = (page: number) => {
+    const newOffset = (page - 1) * searchParams.limit;
+    setSearchParams({ ...searchParams, offset: newOffset });
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      goToPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      goToPage(currentPage - 1);
+    }
   };
 
   const toggleCampgroundType = (type: "tent" | "rv" | "cabin" | "dispersed" | "group" | "mixed") => {
@@ -309,9 +334,16 @@ export default function Search() {
 
             {!isLoading && !error && campgrounds && campgrounds.length > 0 && (
               <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Found {campgrounds.length} campground{campgrounds.length !== 1 ? 's' : ''}
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    Showing {searchParams.offset + 1}-{Math.min(searchParams.offset + searchParams.limit, totalResults)} of {totalResults} campground{totalResults !== 1 ? 's' : ''}
+                  </p>
+                  {totalPages > 1 && (
+                    <p className="text-sm text-muted-foreground">
+                      Page {currentPage} of {totalPages}
+                    </p>
+                  )}
+                </div>
                 {campgrounds.map((campground) => (
                   <Card 
                     key={campground.id} 
@@ -384,6 +416,77 @@ export default function Search() {
                       </CardContent>
                     </Card>
                 ))}
+                
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 pt-6">
+                    <Button
+                      variant="outline"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </Button>
+                    
+                    <div className="flex items-center gap-1">
+                      {/* Show first page */}
+                      {currentPage > 3 && (
+                        <>
+                          <Button
+                            variant={currentPage === 1 ? "default" : "outline"}
+                            onClick={() => goToPage(1)}
+                            size="sm"
+                          >
+                            1
+                          </Button>
+                          {currentPage > 4 && <span className="px-2">...</span>}
+                        </>
+                      )}
+                      
+                      {/* Show pages around current page */}
+                      {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter(page => {
+                          return page === currentPage ||
+                                 page === currentPage - 1 ||
+                                 page === currentPage + 1 ||
+                                 (currentPage <= 2 && page <= 3) ||
+                                 (currentPage >= totalPages - 1 && page >= totalPages - 2);
+                        })
+                        .map(page => (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? "default" : "outline"}
+                            onClick={() => goToPage(page)}
+                            size="sm"
+                          >
+                            {page}
+                          </Button>
+                        ))}
+                      
+                      {/* Show last page */}
+                      {currentPage < totalPages - 2 && (
+                        <>
+                          {currentPage < totalPages - 3 && <span className="px-2">...</span>}
+                          <Button
+                            variant={currentPage === totalPages ? "default" : "outline"}
+                            onClick={() => goToPage(totalPages)}
+                            size="sm"
+                          >
+                            {totalPages}
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
           </div>

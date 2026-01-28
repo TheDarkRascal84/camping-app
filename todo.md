@@ -186,3 +186,13 @@
 - [x] Add gentle rotation effect on hover (e.g., rotate 5-10 degrees)
 - [x] Ensure smooth animation timing with proper easing
 - [x] Test animation across all pages (Home, Search, MapView, CampgroundDetail, MyBookings)
+
+## Search Results Pagination
+- [x] Update tRPC search endpoint to accept page and limit parameters
+- [x] Modify database query to support LIMIT and OFFSET
+- [x] Return total count of results for pagination calculation
+- [x] Create Pagination component with prev/next/page number controls
+- [x] Update Search page to use pagination state
+- [x] Display "Showing X-Y of Z results" information
+- [x] Write tests for paginated search endpoint
+- [x] Test pagination UI with different result counts
