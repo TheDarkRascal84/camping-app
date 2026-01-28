@@ -26,13 +26,22 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image with Translucent Overlay */}
+        <div className="absolute inset-0">
+          <img
+            src="/camping-hero-bg.png"
+            alt="Mountain camping scene with tent by lake"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-background/90" />
+        </div>
+        <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-5xl font-bold tracking-tight">
+            <h1 className="text-5xl font-bold tracking-tight drop-shadow-lg">
               Find Your Perfect Campsite
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-foreground/80 drop-shadow-md">
               Search thousands of campgrounds across the United States. Real-time availability, 
               detailed amenities, and interactive maps to help you plan your next outdoor adventure.
             </p>

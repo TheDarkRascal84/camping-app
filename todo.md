@@ -101,3 +101,8 @@
 - [x] Add image carousel component to campground detail pages
 - [x] Fetch multiple images (5-6) for detail page display
 - [x] Implement prev/next navigation controls for carousel
+
+## Background Image Enhancement
+- [x] Add camping scene as translucent background to landing page
+- [x] Ensure text visibility with proper contrast overlays
+- [x] Copy background image to public directory
