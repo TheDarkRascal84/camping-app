@@ -8,7 +8,7 @@ export function RaccoonLogo({ className = "h-8 w-8" }: RaccoonLogoProps) {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`${className} transition-transform duration-300 ease-out hover:scale-110 hover:rotate-6`}
     >
       {/* Full-body raccoon design inspired by reference images */}
       

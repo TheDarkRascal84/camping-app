@@ -179,3 +179,10 @@
 - [x] Add raccoon logo to MapView page header
 - [x] Add raccoon logo to CampgroundDetail page header
 - [x] Add raccoon logo to MyBookings page header
+
+## Raccoon Logo Hover Animation
+- [x] Add CSS transition properties to RaccoonLogo component
+- [x] Implement subtle scale effect on hover (e.g., scale to 1.1)
+- [x] Add gentle rotation effect on hover (e.g., rotate 5-10 degrees)
+- [x] Ensure smooth animation timing with proper easing
+- [x] Test animation across all pages (Home, Search, MapView, CampgroundDetail, MyBookings)
