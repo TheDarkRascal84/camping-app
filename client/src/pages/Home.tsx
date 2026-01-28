@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Squirrel, MapPin, Calendar, Filter, Search as SearchIcon } from "lucide-react";
+import { MapPin, Calendar, Filter, Search as SearchIcon } from "lucide-react";
 import { Link } from "wouter";
+import { RaccoonLogo } from "@/components/RaccoonLogo";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
-              <Squirrel className="h-8 w-8" />
+              <RaccoonLogo className="h-8 w-8" />
               CampFinder
             </Link>
             <nav className="flex items-center gap-4">
@@ -153,7 +154,7 @@ export default function Home() {
             </p>
             <Link href="/search">
               <Button size="lg" className="gap-2">
-                <Squirrel className="h-5 w-5" />
+                <RaccoonLogo className="h-5 w-5" />
                 Start Searching Now
               </Button>
             </Link>
@@ -166,7 +167,7 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Squirrel className="h-4 w-4" />
+              <RaccoonLogo className="h-4 w-4" />
               <span>© 2026 CampFinder. Built with Manus.</span>
             </div>
             <div className="flex items-center gap-6 text-sm">

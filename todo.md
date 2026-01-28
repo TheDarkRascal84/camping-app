@@ -163,3 +163,8 @@
 
 ## Logo Update
 - [x] Replace tent icon with raccoon icon in header/navigation
+
+## Custom Raccoon Logo
+- [x] Create custom raccoon SVG logo design
+- [x] Replace squirrel icon with raccoon SVG component
+- [x] Update all logo usages across the application
