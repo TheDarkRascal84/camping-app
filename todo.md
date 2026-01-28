@@ -196,3 +196,9 @@
 - [x] Display "Showing X-Y of Z results" information
 - [x] Write tests for paginated search endpoint
 - [x] Test pagination UI with different result counts
+
+## Burnt Orange Background Theme
+- [x] Update CSS variables in index.css for burnt orange background
+- [x] Ensure text contrast is readable on burnt orange
+- [x] Update card backgrounds for visual hierarchy
+- [x] Test across all pages (Home, Search, MapView, CampgroundDetail, MyBookings)

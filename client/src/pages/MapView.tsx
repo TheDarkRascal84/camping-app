@@ -12,9 +12,10 @@ export default function MapView() {
   const [selectedCampground, setSelectedCampground] = useState<any>(null);
 
   // Fetch all campgrounds for map markers
-  const { data: campgrounds, isLoading } = trpc.campgrounds.search.useQuery({
+  const { data: searchResults, isLoading } = trpc.campgrounds.search.useQuery({
     limit: 500,
   });
+  const campgrounds = searchResults?.campgrounds || [];
 
   const handleMapReady = useCallback((map: google.maps.Map) => {
     if (!campgrounds || campgrounds.length === 0) return;
@@ -23,7 +24,7 @@ export default function MapView() {
     const infoWindow = new window.google.maps.InfoWindow();
 
     // Create markers for each campground
-    campgrounds.forEach((campground) => {
+    campgrounds.forEach((campground: any) => {
       if (!campground.latitude || !campground.longitude) return;
 
       const lat = parseFloat(campground.latitude);
@@ -159,7 +160,7 @@ export default function MapView() {
           <Card className="absolute top-4 right-4 shadow-lg z-20">
             <CardContent className="pt-6">
               <div className="text-center">
-                <p className="text-3xl font-bold text-primary">{campgrounds.length}</p>
+                <p className="text-3xl font-bold text-primary">{searchResults?.total || 0}</p>
                 <p className="text-sm text-muted-foreground">Campgrounds</p>
               </div>
             </CardContent>

@@ -47,7 +47,7 @@ export default function Search() {
     if (!campgrounds || campgrounds.length === 0) return;
 
     // Fetch images for each campground with a small delay to avoid rate limiting
-    campgrounds.forEach((campground, index) => {
+    campgrounds.forEach((campground: any, index: number) => {
       // Skip if we already have an image or error for this campground
       if (campgroundImages[campground.id] || imageErrorStates[campground.id]) return;
 
@@ -344,7 +344,7 @@ export default function Search() {
                     </p>
                   )}
                 </div>
-                {campgrounds.map((campground) => (
+                {campgrounds.map((campground: any) => (
                   <Card 
                     key={campground.id} 
                     className="hover:shadow-lg transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
