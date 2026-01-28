@@ -106,3 +106,6 @@
 - [x] Add camping scene as translucent background to landing page
 - [x] Ensure text visibility with proper contrast overlays
 - [x] Copy background image to public directory
+
+## Visual Refinements
+- [x] Adjust background overlay opacity to 80% for more prominent image

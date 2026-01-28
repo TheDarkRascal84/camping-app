@@ -34,7 +34,7 @@ export default function Home() {
             alt="Mountain camping scene with tent by lake"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-background/90" />
+          <div className="absolute inset-0 bg-background/80" />
         </div>
         <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-6">
