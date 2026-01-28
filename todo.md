@@ -112,3 +112,7 @@
 
 ## Bug Fixes (Home Page)
 - [x] Fix nested anchor tag error on home page
+
+## Performance Enhancements
+- [x] Add skeleton loaders for campground images on search results
+- [x] Implement loading states for image transitions

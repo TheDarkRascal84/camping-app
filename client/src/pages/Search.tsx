@@ -10,6 +10,7 @@ import { Loader2, MapPin, Tent, Calendar, Filter as FilterIcon } from "lucide-re
 import { Link, useLocation } from "wouter";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Search() {
   const [, setLocation] = useLocation();
@@ -30,6 +31,7 @@ export default function Search() {
 
   const [showFilters, setShowFilters] = useState(true);
   const [campgroundImages, setCampgroundImages] = useState<Record<number, string>>({});
+  const [imageLoadingStates, setImageLoadingStates] = useState<Record<number, boolean>>({});
 
   const { data: campgrounds, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
 
@@ -56,8 +58,20 @@ export default function Search() {
         ...prev,
         [firstCampground.id]: sampleImages[0].thumbnail,
       }));
+      // Set loading state for this image
+      setImageLoadingStates(prev => ({
+        ...prev,
+        [firstCampground.id]: true,
+      }));
     }
   }, [sampleImages, firstCampground]);
+
+  const handleImageLoad = (campgroundId: number) => {
+    setImageLoadingStates(prev => ({
+      ...prev,
+      [campgroundId]: false,
+    }));
+  };
 
   const handleSearch = () => {
     setSearchParams({ ...searchParams, offset: 0 });
@@ -288,11 +302,17 @@ export default function Search() {
                   >
                       {campgroundImages[campground.id] && (
                         <div className="relative h-48 w-full overflow-hidden">
+                          {imageLoadingStates[campground.id] && (
+                            <Skeleton className="absolute inset-0 w-full h-full" />
+                          )}
                           <img
                             src={campgroundImages[campground.id]}
                             alt={campground.name}
-                            className="w-full h-full object-cover"
+                            className={`w-full h-full object-cover transition-opacity duration-300 ${
+                              imageLoadingStates[campground.id] ? 'opacity-0' : 'opacity-100'
+                            }`}
                             loading="lazy"
+                            onLoad={() => handleImageLoad(campground.id)}
                           />
                         </div>
                       )}
