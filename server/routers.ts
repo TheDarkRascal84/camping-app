@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import * as db from "./db";
 import { ingestionService } from "./ingestion";
+import { fetchCampgroundImages } from "./images";
 
 export const appRouter = router({
   system: systemRouter,
@@ -109,6 +110,23 @@ export const appRouter = router({
     getAll: publicProcedure.query(async () => {
       return await db.getAllAmenities();
     }),
+  }),
+
+  // Images
+  images: router({
+    getCampgroundImages: publicProcedure
+      .input(
+        z.object({
+          campgroundName: z.string(),
+          city: z.string(),
+          state: z.string(),
+          campgroundType: z.string(),
+          limit: z.number().optional(),
+        })
+      )
+      .query(async ({ input }) => {
+        return await fetchCampgroundImages(input);
+      }),
   }),
 
   // Data ingestion (admin only in production)

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,8 +29,35 @@ export default function Search() {
   });
 
   const [showFilters, setShowFilters] = useState(true);
+  const [campgroundImages, setCampgroundImages] = useState<Record<number, string>>({});
 
   const { data: campgrounds, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
+
+  // Fetch images for first campground as example
+  const firstCampground = campgrounds && campgrounds.length > 0 ? campgrounds[0] : null;
+  
+  const { data: sampleImages } = trpc.images.getCampgroundImages.useQuery(
+    {
+      campgroundName: firstCampground?.name || "",
+      city: firstCampground?.city || "",
+      state: firstCampground?.state || "",
+      campgroundType: firstCampground?.campgroundType || "tent",
+      limit: 1,
+    },
+    {
+      enabled: !!firstCampground,
+    }
+  );
+
+  // Set sample image for first campground
+  useEffect(() => {
+    if (sampleImages && sampleImages.length > 0 && firstCampground) {
+      setCampgroundImages(prev => ({
+        ...prev,
+        [firstCampground.id]: sampleImages[0].thumbnail,
+      }));
+    }
+  }, [sampleImages, firstCampground]);
 
   const handleSearch = () => {
     setSearchParams({ ...searchParams, offset: 0 });
@@ -259,13 +286,30 @@ export default function Search() {
                     tabIndex={0}
                     aria-label={`View details for ${campground.name} in ${campground.city}, ${campground.state}`}
                   >
+                      {campgroundImages[campground.id] && (
+                        <div className="relative h-48 w-full overflow-hidden">
+                          <img
+                            src={campgroundImages[campground.id]}
+                            alt={campground.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="space-y-1">
                             <CardTitle>{campground.name}</CardTitle>
-                            <CardDescription className="flex items-center gap-1">
-                              <MapPin className="h-3 w-3" />
-                              {campground.city}, {campground.state}
+                            <CardDescription className="space-y-1">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="h-3 w-3" />
+                                {campground.city}, {campground.state}
+                              </div>
+                              {campground.address && (
+                                <div className="text-xs text-muted-foreground">
+                                  {campground.address}
+                                </div>
+                              )}
                             </CardDescription>
                           </div>
                           <Badge variant="secondary" className="capitalize">

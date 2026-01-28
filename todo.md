@@ -90,3 +90,9 @@
 ## Accessibility Improvements
 - [x] Add keyboard navigation support (Enter/Space keys) to campground cards
 - [x] Add proper ARIA attributes for screen reader support
+
+## Image Integration
+- [x] Display campground address on search result cards
+- [x] Create tRPC endpoint to fetch stock images for campgrounds
+- [x] Integrate image fetching with campground data
+- [x] Display images on campground cards and detail pages
