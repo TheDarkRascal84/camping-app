@@ -80,3 +80,6 @@
 - [ ] Test all features end-to-end
 - [ ] Create final checkpoint
 - [ ] Prepare deployment documentation
+
+## Bug Fixes
+- [x] Fix nested anchor tag error on search page

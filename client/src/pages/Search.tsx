@@ -243,8 +243,11 @@ export default function Search() {
                   Found {campgrounds.length} campground{campgrounds.length !== 1 ? 's' : ''}
                 </p>
                 {campgrounds.map((campground) => (
-                  <Link key={campground.id} href={`/campground/${campground.id}`}>
-                    <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card 
+                    key={campground.id} 
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                    onClick={() => window.location.href = `/campground/${campground.id}`}
+                  >
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="space-y-1">
@@ -270,7 +273,6 @@ export default function Search() {
                         )}
                       </CardContent>
                     </Card>
-                  </Link>
                 ))}
               </div>
             )}
