@@ -32,6 +32,7 @@ export default function Search() {
   const [showFilters, setShowFilters] = useState(true);
   const [campgroundImages, setCampgroundImages] = useState<Record<number, string>>({});
   const [imageLoadingStates, setImageLoadingStates] = useState<Record<number, boolean>>({});
+  const [imageErrorStates, setImageErrorStates] = useState<Record<number, boolean>>({});
 
   const { data: campgrounds, isLoading, error } = trpc.campgrounds.search.useQuery(searchParams);
 
@@ -70,6 +71,17 @@ export default function Search() {
     setImageLoadingStates(prev => ({
       ...prev,
       [campgroundId]: false,
+    }));
+  };
+
+  const handleImageError = (campgroundId: number) => {
+    setImageLoadingStates(prev => ({
+      ...prev,
+      [campgroundId]: false,
+    }));
+    setImageErrorStates(prev => ({
+      ...prev,
+      [campgroundId]: true,
     }));
   };
 
@@ -301,19 +313,27 @@ export default function Search() {
                     aria-label={`View details for ${campground.name} in ${campground.city}, ${campground.state}`}
                   >
                       {campgroundImages[campground.id] && (
-                        <div className="relative h-48 w-full overflow-hidden">
-                          {imageLoadingStates[campground.id] && (
+                        <div className="relative h-48 w-full overflow-hidden bg-muted">
+                          {imageLoadingStates[campground.id] && !imageErrorStates[campground.id] && (
                             <Skeleton className="absolute inset-0 w-full h-full" />
                           )}
-                          <img
-                            src={campgroundImages[campground.id]}
-                            alt={campground.name}
-                            className={`w-full h-full object-cover transition-opacity duration-300 ${
-                              imageLoadingStates[campground.id] ? 'opacity-0' : 'opacity-100'
-                            }`}
-                            loading="lazy"
-                            onLoad={() => handleImageLoad(campground.id)}
-                          />
+                          {imageErrorStates[campground.id] ? (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-muted">
+                              <Tent className="h-16 w-16 text-muted-foreground/40" />
+                              <p className="text-xs text-muted-foreground">Image unavailable</p>
+                            </div>
+                          ) : (
+                            <img
+                              src={campgroundImages[campground.id]}
+                              alt={campground.name}
+                              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                                imageLoadingStates[campground.id] ? 'opacity-0' : 'opacity-100'
+                              }`}
+                              loading="lazy"
+                              onLoad={() => handleImageLoad(campground.id)}
+                              onError={() => handleImageError(campground.id)}
+                            />
+                          )}
                         </div>
                       )}
                       <CardHeader>
