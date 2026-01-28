@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, Calendar, MapPin, Users, X } from "lucide-react";
+import { RaccoonLogo } from "@/components/RaccoonLogo";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { Link } from "wouter";
@@ -64,13 +65,9 @@ export default function MyBookings() {
       {/* Header */}
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">⛺</span>
-              </div>
-              <span className="font-bold text-xl text-foreground">CampFinder</span>
-            </div>
+          <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+            <RaccoonLogo className="h-8 w-8" />
+            CampFinder
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/search">

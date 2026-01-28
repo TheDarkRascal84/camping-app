@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, MapPin, Tent, Calendar, Filter as FilterIcon } from "lucide-react";
+import { RaccoonLogo } from "@/components/RaccoonLogo";
 import { Link, useLocation } from "wouter";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
@@ -170,18 +171,19 @@ export default function Search() {
       <header className="border-b bg-card">
         <div className="container py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 text-2xl font-bold text-primary">
-                <Tent className="h-8 w-8" />
-                CampFinder
-              </a>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+              <RaccoonLogo className="h-8 w-8" />
+              CampFinder
             </Link>
             <nav className="flex items-center gap-4">
-              <Link href="/search">
-                <a className="text-sm font-medium hover:text-primary">Search</a>
+              <Link href="/search" className="text-sm font-medium hover:text-primary">
+                Search
               </Link>
-              <Link href="/map">
-                <a className="text-sm font-medium hover:text-primary">Map View</a>
+              <Link href="/map" className="text-sm font-medium hover:text-primary">
+                Map View
+              </Link>
+              <Link href="/bookings" className="text-sm font-medium hover:text-primary">
+                My Bookings
               </Link>
             </nav>
           </div>

@@ -173,3 +173,9 @@
 - [x] Analyze reference images for design elements (full-body, mask, tail stripes)
 - [x] Create new SVG raccoon design combining best elements from references
 - [x] Replace existing RaccoonLogo component with new design
+
+## Consistent Branding Across Pages
+- [x] Add raccoon logo to Search page header
+- [x] Add raccoon logo to MapView page header
+- [x] Add raccoon logo to CampgroundDetail page header
+- [x] Add raccoon logo to MyBookings page header

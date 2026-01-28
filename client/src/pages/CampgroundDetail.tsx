@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tent, MapPin, Phone, ExternalLink, Loader2, Calendar, DollarSign, Users, Truck, Droplet, Zap, Trash2, Flame, Utensils, Dog, Accessibility } from "lucide-react";
+import { RaccoonLogo } from "@/components/RaccoonLogo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingForm } from "@/components/BookingForm";
 import { AvailabilityCalendar } from "@/components/AvailabilityCalendar";
@@ -80,7 +81,7 @@ export default function CampgroundDetail() {
         <header className="border-b bg-card">
           <div className="container py-4">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
-              <Tent className="h-8 w-8" />
+              <RaccoonLogo className="h-8 w-8" />
               CampFinder
             </Link>
           </div>
@@ -110,13 +111,16 @@ export default function CampgroundDetail() {
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
-              <Tent className="h-8 w-8" />
+              <RaccoonLogo className="h-8 w-8" />
               CampFinder
             </Link>
             <nav className="flex items-center gap-4">
               <Button variant="outline" asChild>
                 <Link href="/search">Back to Search</Link>
               </Button>
+              <Link href="/bookings" className="text-sm font-medium hover:text-primary">
+                My Bookings
+              </Link>
             </nav>
           </div>
         </div>

@@ -1,0 +1,285 @@
+{
+  "query": "SELECT id, name, campgroundType FROM campgrounds WHERE state = 'CA' AND campgroundType = 'mixed';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user tsegTrR1vVaSSsn.root --database JbUDapppSfxTDi8qKdMRyM --execute SELECT id, name, campgroundType FROM campgrounds WHERE state = 'CA' AND campgroundType = 'mixed';",
+  "rows": [
+    {
+      "id": "2",
+      "name": "CA State Park Campground 2",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "10",
+      "name": "CA State Park Campground 10",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "31",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "32",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "34",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "35",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "37",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "38",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "40",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "41",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "43",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "44",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "46",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "48",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "49",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "51",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "52",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "54",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "55",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "57",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "58",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "61",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "62",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "64",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "65",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "67",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "69",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "70",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "72",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "73",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "74",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "76",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "77",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "79",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30002",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30003",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30004",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30006",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30007",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30009",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30011",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "30012",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60001",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60003",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60004",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60005",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60007",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60008",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60010",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60012",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60013",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "60016",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "90001",
+      "name": "Test Campground",
+      "campgroundType": "mixed"
+    },
+    {
+      "id": "90004",
+      "name": "Empty Campground",
+      "campgroundType": "mixed"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcampgroundType\n2\tCA State Park Campground 2\tmixed\n10\tCA State Park Campground 10\tmixed\n31\tTest Campground\tmixed\n32\tTest Campground\tmixed\n34\tEmpty Campground\tmixed\n35\tTest Campground\tmixed\n37\tEmpty Campground\tmixed\n38\tTest Campground\tmixed\n40\tEmpty Campground\tmixed\n41\tTest Campground\tmixed\n43\tEmpty Campground\tmixed\n44\tTest Campground\tmixed\n46\tEmpty Campground\tmixed\n48\tTest Campground\tmixed\n49\tEmpty Campground\tmixed\n51\tTest Campground\tmixed\n52\tEmpty Campground\tmixed\n54\tTest Campground\tmixed\n55\tEmpty Campground\tmixed\n57\tTest Campground\tmixed\n58\tEmpty Campground\tmixed\n60\tEmpty Campground\tmixed\n61\tTest Campground\tmixed\n62\tTest Campground\tmixed\n64\tEmpty Campground\tmixed\n65\tTest Campground\tmixed\n67\tEmpty Campground\tmixed\n69\tTest Campground\tmixed\n70\tEmpty Campground\tmixed\n72\tTest Campground\tmixed\n73\tEmpty Campground\tmixed\n74\tTest Campground\tmixed\n76\tEmpty Campground\tmixed\n77\tTest Campground\tmixed\n79\tEmpty Campground\tmixed\n30002\tEmpty Campground\tmixed\n30003\tTest Campground\tmixed\n30004\tTest Campground\tmixed\n30006\tEmpty Campground\tmixed\n30007\tTest Campground\tmixed\n30009\tEmpty Campground\tmixed\n30011\tTest Campground\tmixed\n30012\tEmpty Campground\tmixed\n60001\tTest Campground\tmixed\n60003\tEmpty Campground\tmixed\n60004\tTest Campground\tmixed\n60005\tTest Campground\tmixed\n60007\tTest Campground\tmixed\n60008\tEmpty Campground\tmixed\n60010\tTest Campground\tmixed\n60012\tEmpty Campground\tmixed\n60013\tTest Campground\tmixed\n60016\tEmpty Campground\tmixed\n90001\tTest Campground\tmixed\n90004\tEmpty Campground\tmixed\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

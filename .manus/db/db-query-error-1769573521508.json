@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, name, campground_type FROM campgrounds WHERE state = 'CA' AND campground_type = 'mixed';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user tsegTrR1vVaSSsn.root --database JbUDapppSfxTDi8qKdMRyM --execute SELECT id, name, campground_type FROM campgrounds WHERE state = 'CA' AND campground_type = 'mixed';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'campground_type' in 'where clause'"
+  ]
+}

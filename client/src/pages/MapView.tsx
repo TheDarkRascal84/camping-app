@@ -3,6 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tent, List, Loader2 } from "lucide-react";
+import { RaccoonLogo } from "@/components/RaccoonLogo";
 import { Link } from "wouter";
 import { MapView as GoogleMapView } from "@/components/Map";
 import { Badge } from "@/components/ui/badge";
@@ -84,11 +85,9 @@ export default function MapView() {
       <header className="border-b bg-card">
         <div className="container py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
-              <a className="flex items-center gap-2 text-2xl font-bold text-primary">
-                <Tent className="h-8 w-8" />
-                CampFinder
-              </a>
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-primary">
+              <RaccoonLogo className="h-8 w-8" />
+              CampFinder
             </Link>
             <nav className="flex items-center gap-4">
               <Link href="/search">
@@ -96,6 +95,9 @@ export default function MapView() {
                   <List className="h-4 w-4" />
                   List View
                 </Button>
+              </Link>
+              <Link href="/bookings" className="text-sm font-medium hover:text-primary">
+                My Bookings
               </Link>
             </nav>
           </div>

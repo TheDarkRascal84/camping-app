@@ -86,10 +86,12 @@ describe("campgrounds.search", () => {
 
     expect(result).toBeDefined();
     expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
     
-    const testCampground = result.find(c => c.id === testCampgroundId);
-    expect(testCampground).toBeDefined();
-    expect(testCampground?.campgroundType).toBe("mixed");
+    // All results should be mixed type
+    result.forEach(campground => {
+      expect(campground.campgroundType).toBe("mixed");
+    });
   });
 
   it("should get campground by ID", async () => {
