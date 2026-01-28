@@ -160,3 +160,6 @@
 - [x] Update frontend to prioritize cached images
 - [ ] Add cache invalidation logic for stale images
 - [x] Test caching performance improvement
+
+## Logo Update
+- [x] Replace tent icon with raccoon icon in header/navigation
