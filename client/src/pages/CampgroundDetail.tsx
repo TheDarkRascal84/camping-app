@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRoute, Link } from "wouter";
 import useEmblaCarousel from "embla-carousel-react";
 import { trpc } from "@/lib/trpc";
@@ -9,10 +9,14 @@ import { Separator } from "@/components/ui/separator";
 import { Tent, MapPin, Phone, ExternalLink, Loader2, Calendar, DollarSign, Users, Truck, Droplet, Zap, Trash2, Flame, Utensils, Dog, Accessibility } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingForm } from "@/components/BookingForm";
+import { AvailabilityCalendar } from "@/components/AvailabilityCalendar";
+import { addMonths, subMonths } from "date-fns";
 
 export default function CampgroundDetail() {
   const [, params] = useRoute("/campground/:id");
   const campgroundId = params?.id ? parseInt(params.id) : 0;
+  const [calendarStartDate, setCalendarStartDate] = useState(new Date());
+  const [calendarEndDate, setCalendarEndDate] = useState(() => addMonths(new Date(), 3));
 
   const { data: campground, isLoading: campgroundLoading } = trpc.campgrounds.getById.useQuery(
     { id: campgroundId },
@@ -26,6 +30,16 @@ export default function CampgroundDetail() {
 
   const { data: amenities, isLoading: amenitiesLoading } = trpc.campgrounds.getAmenities.useQuery(
     { campgroundId },
+    { enabled: campgroundId > 0 }
+  );
+
+  // Fetch booked dates for calendar
+  const { data: bookedDates } = trpc.bookings.getBookedDates.useQuery(
+    {
+      campgroundId,
+      startDate: calendarStartDate,
+      endDate: calendarEndDate,
+    },
     { enabled: campgroundId > 0 }
   );
 
@@ -355,6 +369,12 @@ export default function CampgroundDetail() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Availability Calendar */}
+            <AvailabilityCalendar
+              campgroundId={campground.id}
+              bookedDates={bookedDates || []}
+            />
+
             {/* Booking Form */}
             <BookingForm 
               campgroundId={campground.id} 

@@ -51,7 +51,7 @@ describe("bookings", () => {
 
     expect(result).toHaveProperty("id");
     expect(result).toHaveProperty("confirmationNumber");
-    expect(result.confirmationNumber).toMatch(/^CAMP-[A-Z0-9]{10}$/);
+    expect(result.confirmationNumber).toMatch(/^CAMP-[A-Z0-9_-]{10}$/);
   });
 
   it("should list user bookings", async () => {

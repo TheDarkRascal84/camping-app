@@ -168,6 +168,20 @@ export const appRouter = router({
         await bookingsDb.cancelBooking(input.id, ctx.user.id);
         return { success: true };
       }),
+
+    getBookedDates: publicProcedure
+      .input(z.object({
+        campgroundId: z.number(),
+        startDate: z.date(),
+        endDate: z.date(),
+      }))
+      .query(async ({ input }) => {
+        return await bookingsDb.getBookedDatesForCampground(
+          input.campgroundId,
+          input.startDate,
+          input.endDate
+        );
+      }),
   }),
 
   images: router({

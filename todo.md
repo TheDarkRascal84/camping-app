@@ -127,3 +127,10 @@
 - [x] Add booking form to campground detail pages
 - [x] Implement booking confirmation and management UI
 - [x] Add user's bookings dashboard
+
+## Availability Calendar
+- [x] Create availability calendar component showing booked vs available dates
+- [x] Add tRPC endpoint to fetch booking data for calendar view
+- [x] Integrate calendar into campground detail pages
+- [x] Add visual indicators for available, booked, and unavailable dates
+- [x] Implement date range selection from calendar
