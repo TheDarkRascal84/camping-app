@@ -202,3 +202,10 @@
 - [x] Ensure text contrast is readable on burnt orange
 - [x] Update card backgrounds for visual hierarchy
 - [x] Test across all pages (Home, Search, MapView, CampgroundDetail, MyBookings)
+
+## Docker Configuration
+- [x] Create Dockerfile for production build
+- [x] Create docker-compose.yml for easy container management
+- [x] Create .dockerignore to exclude unnecessary files
+- [x] Document Docker commands in DOCKER.md
+- [ ] Test Docker build and run
