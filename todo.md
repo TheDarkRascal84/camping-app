@@ -209,3 +209,6 @@
 - [x] Create .dockerignore to exclude unnecessary files
 - [x] Document Docker commands in DOCKER.md
 - [ ] Test Docker build and run
+
+## Environment Configuration
+- [x] Create ENV_VARIABLES.md documentation with all required variables and helpful comments
